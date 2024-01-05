@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 using MelonLoader;
 using LMD_ModMenu; // The namespace of your mod class
 // ...
-[assembly: MelonInfo(typeof(Menu), "LMD_ModMenu", "0.0.1", "redish2098")]
-[assembly: MelonGame("Lonely Mountains: Downhill", "Megagon Industries")]
+[assembly: MelonInfo(typeof(ModMenu), "LMD_ModMenu", "0.0.1", "redish2098")]
+[assembly: MelonGame("Megagon Industries","Lonely Mountains: Downhill")]
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
