@@ -1,4 +1,5 @@
-﻿using MelonLoader;
+﻿using Il2CppSystem;
+using MelonLoader;
 using UnityEngine;
 
 
@@ -8,7 +9,7 @@ namespace LMD_ModMenu
     {
         public MenuManager menuManager { get; private set; }
         KeyCode toggleMenuButton = KeyCode.M;
-        
+
         public override void OnInitializeMelon()
         {
             menuManager = MenuManager.Instance;
@@ -17,7 +18,10 @@ namespace LMD_ModMenu
 
         public override void OnUpdate()
         {
-            if (Input.GetKeyDown(toggleMenuButton)) menuManager.toggleEnabled();
+            if (Input.GetKeyDown(toggleMenuButton))
+            {
+                menuManager.toggleEnabled();
+            }
         }
 
     }

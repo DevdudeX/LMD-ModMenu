@@ -1,12 +1,9 @@
-﻿
-
-using Il2CppMegagon.Downhill.UI;
+﻿using Harmony;
 using MelonLoader;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using UnityEngine;
-using static MelonLoader.MelonLogger;
 
 namespace LMD_ModMenu
 {
@@ -30,6 +27,11 @@ namespace LMD_ModMenu
             }
         }
 
+        public void RegisterAction(string name, string buttonName, int callbackID, Action<int> callback)
+        {
+            modInfoWindows[name].addAction(buttonName, callbackID, callback);
+        }
+
         public static MenuManager Instance
         {
             get
@@ -48,6 +50,7 @@ namespace LMD_ModMenu
             {
                 menu.Draw();
                 Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
 
 
                 foreach (string name in menu.getClicked())
@@ -69,6 +72,7 @@ namespace LMD_ModMenu
     {
         Rect windowRect = new Rect(20, 20, 500, 1000);
         List<string> clickedMods = new List<string>();
+        
         MelonBase[] allMelons;
         public MainMenu()
         {
@@ -89,6 +93,7 @@ namespace LMD_ModMenu
                 if (GUILayout.Button(melon.Info.Name))
                 {
                     clickedMods.Add(melon.Info.Name);
+                    
                 }
             }
             GUILayout.EndVertical();
@@ -113,6 +118,8 @@ namespace LMD_ModMenu
         int windowID;
 
         bool loaded = true;
+
+        Dictionary<string, (int, Action<int>)> actions = new Dictionary<string, (int, Action<int>)>();
         public ModInfo(MelonBase melon, int windowID)
         {
             this.mod = melon;
@@ -121,14 +128,6 @@ namespace LMD_ModMenu
         public void toggleEnbled()
         {
             enabled = !enabled;
-        }
-
-        public void Draw()
-        {
-            if (enabled)
-            {
-                windowRect = GUI.Window(windowID, windowRect, (GUI.WindowFunction)ModSettings, mod.Info.Name + " " + mod.Info.Version + " by " + mod.Info.Author);
-            }
         }
 
         void toggleLoaded()
@@ -145,23 +144,38 @@ namespace LMD_ModMenu
             }
         }
 
+        public void addAction(string buttonName, int callbackID, Action<int> callback)
+        {
+            actions.Add(buttonName, (callbackID, callback));
+        }
+
+        public void Draw()
+        {
+            if (enabled)
+            {
+                windowRect = GUI.Window(windowID, windowRect, (GUI.WindowFunction)ModSettings, mod.Info.Name + " " + mod.Info.Version + " by " + mod.Info.Author);
+            }
+        }
+
         void ModSettings(int windowID)
         {
-
-
             if (GUI.Button(new Rect(0, 0, 60, 20), "X"))
             {
                 toggleEnbled();
             }
             GUILayout.BeginVertical();
-            GUILayout.BeginHorizontal();
-
             if (GUILayout.Button(loaded ? "disable" : "enable"))
             {
                 toggleLoaded();
             }
-
-            GUILayout.EndHorizontal();
+            GUILayout.Label("Actions");
+            foreach(KeyValuePair<string,(int,Action<int>)> action in actions)
+            {
+                if (GUILayout.Button(action.Key))
+                {
+                    action.Value.Item2(action.Value.Item1);
+                }
+            }
             GUILayout.EndVertical();
             GUI.DragWindow();
         }
