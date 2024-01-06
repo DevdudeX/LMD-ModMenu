@@ -83,9 +83,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Lonely Mountains - Downhill\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="UniverseLib.IL2CPP">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Lonely Mountains - Downhill\UserLibs\UniverseLib.IL2CPP.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModMenu.cs" />

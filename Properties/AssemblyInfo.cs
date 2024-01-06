@@ -3,14 +3,13 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 using MelonLoader;
-using LMD_ModMenu; // The namespace of your mod class
-// ...
+using LMD_ModMenu;
 [assembly: MelonInfo(typeof(ModMenu), "LMD_ModMenu", "0.0.1", "redish2098")]
 [assembly: MelonGame("Megagon Industries","Lonely Mountains: Downhill")]
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LMD-ModMenu")]
+[assembly: AssemblyTitle("Mod Menu")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

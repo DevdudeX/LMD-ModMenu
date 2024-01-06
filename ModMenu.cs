@@ -6,19 +6,19 @@ namespace LMD_ModMenu
 {
     public class ModMenu : MelonMod
     {
-        MenuManager menuManager;
+        public MenuManager menuManager { get; private set; }
+        KeyCode toggleMenuButton = KeyCode.M;
+        
         public override void OnInitializeMelon()
         {
-            menuManager = new MenuManager();
-        }
-        public override void OnGUI()
-        {
+            menuManager = MenuManager.Instance;
             MelonEvents.OnGUI.Subscribe(menuManager.DrawAll);
         }
 
         public override void OnUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.M)) menuManager.toggleActive();
+            if (Input.GetKeyDown(toggleMenuButton)) menuManager.toggleEnabled();
         }
+
     }
 }
