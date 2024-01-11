@@ -18,6 +18,14 @@ namespace LMD_ModMenu
 		Dictionary<string,ModInfo> modInfoWindows = new Dictionary<string,ModInfo>();
 
 		private static readonly MenuManager instance = new MenuManager();
+		public static MenuManager Instance
+		{
+			get
+			{
+				return instance;
+			}
+		}
+
 		static MenuManager() { }
 		private MenuManager()
 		{
@@ -30,6 +38,9 @@ namespace LMD_ModMenu
 			}
 		}
 
+		/// <summary>
+		/// Registers an action button to be drawn.
+		/// </summary>
 		public void RegisterAction(string name, string buttonName, int callbackID, Action<int> callback)
 		{
 			modInfoWindows[name].AddAction(buttonName, callbackID, callback);
@@ -43,14 +54,10 @@ namespace LMD_ModMenu
 			modInfoWindows[name].AddInfoItem(infoPrefix, callbackID, infoValueCallback);
 		}
 
-		public static MenuManager Instance
-		{
-			get
-			{
-				return instance;
-			}
-		}
 
+		/// <summary>
+		/// Handles the rendering of the entire window.
+		/// </summary>
 		public void ToggleDrawEnabled()
 		{
 			enabled = !enabled;
@@ -70,7 +77,7 @@ namespace LMD_ModMenu
 
 				foreach (ModInfo modInfo in modInfoWindows.Values)
 				{
-					if (modInfo.enabled)
+					if (modInfo.DrawingEnabled)
 					{
 						modInfo.Draw();
 					}
@@ -118,7 +125,7 @@ namespace LMD_ModMenu
 	class ModInfo
 	{
 		Rect windowRect = new Rect(20, 20, 500, 500);
-		public bool enabled { get; private set; }
+		public bool DrawingEnabled { get; private set; }
 		MelonBase mod;
 		int windowID;
 
@@ -132,9 +139,13 @@ namespace LMD_ModMenu
 			this.mod = melon;
 			this.windowID = windowID;
 		}
+
+		/// <summary>
+		/// Toggle the drawing of the entire mod info window.
+		/// </summary>
 		public void ToggleDrawEnabled()
 		{
-			enabled = !enabled;
+			DrawingEnabled = !DrawingEnabled;
 		}
 
 		void ToggleLoaded()
@@ -151,10 +162,17 @@ namespace LMD_ModMenu
 			}
 		}
 
+		/// <summary>
+		/// Adds an action.
+		/// </summary>
 		public void AddAction(string buttonName, int callbackID, Action<int> callback)
 		{
 			actions.Add(buttonName, (callbackID, callback));
 		}
+
+		/// <summary>
+		/// Adds an info label.
+		/// </summary>
 		public void AddInfoItem(string infoPrefix, int callbackID, Func<string> infoValue)
 		{
 			infoItems.Add(infoPrefix, (callbackID, infoValue));
@@ -162,7 +180,7 @@ namespace LMD_ModMenu
 
 		public void Draw()
 		{
-			if (enabled)
+			if (DrawingEnabled)
 			{
 				windowRect = GUI.Window(windowID, windowRect, (GUI.WindowFunction)ModSettings, mod.Info.Name + " " + mod.Info.Version + " by " + mod.Info.Author);
 			}
@@ -180,14 +198,16 @@ namespace LMD_ModMenu
 				ToggleLoaded();
 			}
 
-			GUILayout.Label("Info");
+			// Render all info labels
+			if (infoItems.Count > 0) GUILayout.Label("Info");
 			foreach(KeyValuePair<string,(int,Func<string>)> infoItem in infoItems)
 			{
 				string infoText = $"{infoItem.Key}{infoItem.Value.Item2()}";
 				GUILayout.Label(infoText);
 			}
 
-			GUILayout.Label("Actions");
+			// Render all action buttons
+			if (actions.Count > 0) GUILayout.Label("Actions");
 			foreach(KeyValuePair<string,(int,Action<int>)> action in actions)
 			{
 				if (GUILayout.Button(action.Key))
