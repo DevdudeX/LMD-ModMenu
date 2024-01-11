@@ -20,7 +20,7 @@ namespace LMD_ModMenu
         {
             if (Input.GetKeyDown(toggleMenuButton))
             {
-                menuManager.toggleEnabled();
+                menuManager.ToggleDrawEnabled();
             }
         }
 
