@@ -13,7 +13,7 @@ namespace LMD_ModMenu
 {
 	public sealed class MenuManager
 	{
-		bool enabled = false;
+		public bool IsVisible { get; private set; }
 		MainMenu menu;
 		Dictionary<string,ModInfo> modInfoWindows = new Dictionary<string,ModInfo>();
 
@@ -56,15 +56,23 @@ namespace LMD_ModMenu
 
 
 		/// <summary>
-		/// Handles the rendering of the entire window.
+		/// Sets the rendering state of the entire window.
 		/// </summary>
-		public void ToggleDrawEnabled()
+		public void SetVisibility(bool visible)
 		{
-			enabled = !enabled;
+			IsVisible = visible;
+		}
+
+		/// <summary>
+		/// Toggles the rendering of the entire window.
+		/// </summary>
+		public void ToggleVisibility()
+		{
+			IsVisible = !IsVisible;
 		}
 		public void DrawAll()
 		{
-			if (enabled)
+			if (IsVisible)
 			{
 				menu.Draw();
 				Cursor.visible = true;
@@ -72,12 +80,12 @@ namespace LMD_ModMenu
 
 				foreach (string name in menu.GetClicked())
 				{
-					modInfoWindows[name].ToggleDrawEnabled();
+					modInfoWindows[name].ToggleVisibility();
 				}
 
 				foreach (ModInfo modInfo in modInfoWindows.Values)
 				{
-					if (modInfo.DrawingEnabled)
+					if (modInfo.IsVisible)
 					{
 						modInfo.Draw();
 					}
@@ -124,8 +132,8 @@ namespace LMD_ModMenu
 
 	class ModInfo
 	{
-		Rect windowRect = new Rect(20, 20, 500, 500);
-		public bool DrawingEnabled { get; private set; }
+		Rect windowRect = new Rect(520, 20, 500, 500);
+		public bool IsVisible { get; private set; }
 		MelonBase mod;
 		int windowID;
 
@@ -143,9 +151,9 @@ namespace LMD_ModMenu
 		/// <summary>
 		/// Toggle the drawing of the entire mod info window.
 		/// </summary>
-		public void ToggleDrawEnabled()
+		public void ToggleVisibility()
 		{
-			DrawingEnabled = !DrawingEnabled;
+			IsVisible = !IsVisible;
 		}
 
 		void ToggleLoaded()
@@ -180,7 +188,7 @@ namespace LMD_ModMenu
 
 		public void Draw()
 		{
-			if (DrawingEnabled)
+			if (IsVisible)
 			{
 				windowRect = GUI.Window(windowID, windowRect, (GUI.WindowFunction)ModSettings, mod.Info.Name + " " + mod.Info.Version + " by " + mod.Info.Author);
 			}
@@ -188,11 +196,13 @@ namespace LMD_ModMenu
 
 		void ModSettings(int windowID)
 		{
-			if (GUI.Button(new Rect(0, 0, 60, 20), "X"))
+			if (GUI.Button(new Rect(10, 0, 60, 20), "X"))
 			{
-				ToggleDrawEnabled();
+				ToggleVisibility();
 			}
 			GUILayout.BeginVertical();
+
+			GUILayout.Label("Toggle mod state");
 			if (GUILayout.Button(loaded ? "disable" : "enable"))
 			{
 				ToggleLoaded();

@@ -11,6 +11,7 @@ namespace LMD_ModMenu
 	{
 		public MenuManager MenuManager { get; private set; }
 		KeyCode toggleMenuButton = KeyCode.M;
+		KeyCode closeMenuButton = KeyCode.Escape;
 
 		public override void OnInitializeMelon()
 		{
@@ -22,7 +23,12 @@ namespace LMD_ModMenu
 		{
 			if (Input.GetKeyDown(toggleMenuButton))
 			{
-				MenuManager.ToggleDrawEnabled();
+				MenuManager.ToggleVisibility();
+			}
+
+			if (MenuManager.IsVisible && Input.GetKeyDown(closeMenuButton))
+			{
+				MenuManager.SetVisibility(false);
 			}
 		}
 	}
