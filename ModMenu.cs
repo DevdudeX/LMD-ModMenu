@@ -22,8 +22,8 @@ namespace LMD_ModMenu
 		private const string MOD_VERSION = "0.0.1";
 
 		public MenuManager MenuManager { get; private set; }
-		KeyCode toggleMenuButton = KeyCode.M;
-		KeyCode closeMenuButton = KeyCode.Escape;
+		private KeyCode toggleMenuButton = KeyCode.M;
+		private KeyCode closeMenuButton = KeyCode.Escape;
 
 		public override void OnInitializeMelon()
 		{
@@ -45,7 +45,7 @@ namespace LMD_ModMenu
 			}
 		}
 
-		public static void DrawVersionText()
+		private static void DrawVersionText()
 		{
 			GUI.Label(new Rect(20, 8, 1000, 200), "<b><color=white><size=15>Mod Menu v"+ MOD_VERSION +"</size></color></b>");
 		}
