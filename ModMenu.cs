@@ -9,7 +9,7 @@ using UnityEngine;
 [assembly: MelonInfo(
 	typeof(ModMenu),
 	name:"Mod Menu",
-	version:"0.0.1",
+	version:"0.0.2",
 	author:"redish2098, DevdudeX",
 	downloadLink:"github.com/DevdudeX/LMD-ModMenu"
 )]
@@ -19,7 +19,7 @@ namespace LMD_ModMenu
 	public class ModMenu : MelonMod
 	{
 		// Keep this updated!
-		private const string MOD_VERSION = "0.0.1";
+		private const string MOD_VERSION = "0.0.2";
 
 		public MenuManager MenuManager { get; private set; }
 		private KeyCode toggleMenuButton = KeyCode.M;

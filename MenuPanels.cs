@@ -4,6 +4,7 @@ using Harmony;
 
 // Unity
 using UnityEngine;
+using UnityEngine.UI;
 
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace LMD_ModMenu
 		/// <summary>
 		/// Registers an action button to be drawn.
 		/// </summary>
-		public void RegisterAction(string name, string buttonName, int callbackID, Action<int> callback)
+		public void RegisterActionBtn(string name, string buttonName, int callbackID, Action<int> callback)
 		{
 			modInfoWindows[name].AddAction(buttonName, callbackID, callback);
 		}
@@ -210,7 +211,7 @@ namespace LMD_ModMenu
 
 			// Render all info labels
 			if (infoItems.Count > 0) GUILayout.Label("Info");
-			foreach(KeyValuePair<string,(int,Func<string>)> infoItem in infoItems)
+			foreach(KeyValuePair<string, (int, Func<string>)> infoItem in infoItems)
 			{
 				string infoText = $"{infoItem.Key}{infoItem.Value.Item2()}";
 				GUILayout.Label(infoText);
@@ -218,7 +219,7 @@ namespace LMD_ModMenu
 
 			// Render all action buttons
 			if (actions.Count > 0) GUILayout.Label("Actions");
-			foreach(KeyValuePair<string,(int,Action<int>)> action in actions)
+			foreach(KeyValuePair<string, (int, Action<int>)> action in actions)
 			{
 				if (GUILayout.Button(action.Key))
 				{
