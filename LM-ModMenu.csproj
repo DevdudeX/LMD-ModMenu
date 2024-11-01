@@ -7,8 +7,8 @@
     <ProjectGuid>{3217C542-5B39-479E-9F58-2B6834D5844C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LMD_ModMenu</RootNamespace>
-    <AssemblyName>LMD-ModMenu</AssemblyName>
+    <RootNamespace>LonelyMountains_ModMenu</RootNamespace>
+    <AssemblyName>LM_ModMenu</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -83,6 +83,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "D:\SteamLibrary\steamapps\common\Lonely Mountains - Downhill\Mods"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetPath)" "D:\SteamLibrary\steamapps\common\Lonely Mountains - Downhill\Mods"
+echo Copied to 'D:\SteamLibrary\steamapps\common\Lonely Mountains - Downhill\Mods'
+
+copy /Y "$(TargetPath)" "D:\SteamLibrary\steamapps\common\LMSR Demo\Mods"
+echo Copied to 'D:\SteamLibrary\steamapps\common\LMSR Demo\Mods'</PostBuildEvent>
   </PropertyGroup>
 </Project>

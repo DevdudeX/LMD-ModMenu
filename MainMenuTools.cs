@@ -16,7 +16,7 @@ using Il2CppMegagon.Downhill.UI.Animations;
 using Il2CppMegagon.Downhill.UI.Screens;
 using Il2CppMegagon.Downhill.UI.Screens.Helper;
 
-namespace LMD_ModMenu
+namespace LonelyMountains_ModMenu
 {
 	public class MainMenuTools : MelonMod
 	{

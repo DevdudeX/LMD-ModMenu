@@ -1,6 +1,6 @@
 ﻿// Mod
 using MelonLoader;
-using LMD_ModMenu;
+using LonelyMountains_ModMenu;
 
 // Unity
 using Il2CppSystem;
@@ -9,17 +9,17 @@ using UnityEngine;
 [assembly: MelonInfo(
 	typeof(ModMenu),
 	name:"Mod Menu",
-	version:"0.0.2",
+	version:"0.0.3",
 	author:"redish2098, DevdudeX",
-	downloadLink:"github.com/DevdudeX/LMD-ModMenu"
+	downloadLink:"github.com/DevdudeX/LM-ModMenu"
 )]
-[assembly: MelonGame("Megagon Industries","Lonely Mountains: Downhill")]
-namespace LMD_ModMenu
+[assembly: MelonGame("Megagon Industries")]
+namespace LonelyMountains_ModMenu
 {
 	public class ModMenu : MelonMod
 	{
 		// Keep this updated!
-		private const string MOD_VERSION = "0.0.2";
+		private const string MOD_VERSION = "0.0.3";
 
 		public MenuManager MenuManager { get; private set; }
 		private KeyCode toggleMenuButton = KeyCode.M;

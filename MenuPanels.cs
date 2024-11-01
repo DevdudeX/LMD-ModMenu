@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LMD_ModMenu
+namespace LonelyMountains_ModMenu
 {
 	public sealed class MenuManager
 	{
@@ -34,6 +34,11 @@ namespace LMD_ModMenu
 			int count = 1;
 			foreach (MelonBase melon in MelonBase.RegisteredMelons)
 			{
+				if (melon.Info.Name == "Mod Menu")
+				{
+					// Skip displaying stuff that shouldn't be shown
+					continue;
+				}
 				modInfoWindows.Add(melon.Info.Name, new ModInfo(melon, count));
 				count++;
 			}
